@@ -5,7 +5,7 @@ Die Datei `Exercise.csl` im richtigen Ordner abspeichern:
 
 - MacOS: `/Users/$(user)/Library/texmf/tex/latex/commonstuff` 
 - Linux: `~/texmf/tex/latex/commonstuff/`
-- Windows: `C:/Users/$(user)/texmf/tex/latex/commonstuff` (not tested)
+- Windows: `C:/Users/$(user)/texmf/tex/latex/commonstuff`
 
 Ganz am Anfang muss diese Klasse mit der gewünschten Sprache ausgewählt werden mit 
 `\documentclass[german]{Exercise}` oder `\documentclass[english]{Exercise}`.
