@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{Exercise}
 
-\LoadClass[a4paper]{article}
+\LoadClass[a4paper,ngerman]{article}
 
 
 \RequirePackage[ngerman]{babel}
@@ -25,13 +25,13 @@
 \RequirePackage{pdflscape}
 \RequirePackage{varioref}% vref includes the page of not on same
 
-\RequirePackage{fontawesome5}% for calculator symbol
+%\RequirePackage{fontawesome5}% for calculator symbol
 
 \RequirePackage{siunitx}
 \sisetup{per-mode=symbol-or-fraction,binary-units=true,locale=DE,output-decimal-marker={.}}
 
 \RequirePackage{tikz,pgfplots}
-\pgfplotsset{compat=1.17}
+\pgfplotsset{compat=1.15}
 
 \RequirePackage{hyperref}
 \RequirePackage{multicol} % Tabular top left field
@@ -42,6 +42,7 @@
 \RequirePackage{lastpage}% get last page numberint
 \RequirePackage{changepage}% indentation
 \RequirePackage{xstring}% length of string
+\RequirePackage{cleveref}% For abbrv. befor references
 
 
 \DeclareOption{german}
