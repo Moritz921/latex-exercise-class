@@ -1,45 +1,42 @@
 # Vorlage für Übungen
 
 ## Benutzung
-Die Datei `Exercise.csl` im richtigen Ordner abspeichern:
+Die Datei `ExerciseLua.csl` im richtigen Ordner abspeichern:
 
 - MacOS: `/Users/$(user)/Library/texmf/tex/latex/commonstuff` 
 - Linux: `~/texmf/tex/latex/commonstuff/`
 - Windows: `C:/Users/$(user)/texmf/tex/latex/commonstuff`
 
 Ganz am Anfang muss diese Klasse mit der gewünschten Sprache ausgewählt werden mit 
-`\documentclass[german]{Exercise}` oder `\documentclass[english]{Exercise}`.
+`\documentclass[german]{ExerciseLua}` oder `\documentclass[english]{ExerciseLua}`.
 
 Die benötigten Variablen in der Präambel sind
 
 | Variable | Bedeutung |
 | ------ | ------ |
-| `\lecture{}` | Name der Veranstaltung |
-| `\lectureShort{}` | Kürzel der Veranstaltung |
-| `\semester{}` | Aktuelles Semester |
-| `\stdName{}` | Name des Studierenden |
-| `\stdID{}` | Matrikelnummer des Studierenden |
-| `\stdGroup{}` | Übungsgruppe |
-| `\tutor{}` | Name des Tutors (kann leer gelassen werden, sonst sollte \; - \; vor den Namen gesetzt werden) |
-| `\assignment{}` | Nummer des Übungsblatts |
+| `\setLecture[]{}` | Name der Veranstaltung [Kürzel der Veranstaltung] |
+| `\setSemester{}` | Aktuelles Semester |
+| `\setName{}` | Name des Studierenden |
+| `\setstdID{}` | Matrikelnummer des Studierenden |
+| `\setGroup{}` | Übungsgruppe |
+| `\setTutor{}` | Name des Tutors (kann weggelassen werden) |
+| `\setAssignment{}` | Nummer des Übungsblatts *zwingend zuletzt und erforderlich* |
 
 Danach kann man loslegen.
 
 ## Beispiele
 Minimales Beispiel:
 ```latex
-\documentclass[german]{Exercise}
+\documentclass[german]{ExerciseLua}
     
-\lecture{Veranstaltung}
-\lectureShort{Verst.}
-\semester{Winter 2020/21}
+\setLecture{kurze Veranstaltung}
+\setSemester{Sommer 2022}
 
-\stdName{Muster Student}
-\stdID{1234567}
-\stdGroup{1}
-\tutor{\; -- \; Test Tutor}
-
-\assignment{3}
+\setName{Moritz K}
+\setStdID{1234567}
+\setGroup{5}
+\setTutor{Richard Bock}
+\setAssignment{2}
 
 \begin{document}
     \begin{exercise}{1}
@@ -47,7 +44,7 @@ Minimales Beispiel:
     \end{exercise}
 \end{document}
 ```
-Erweitertes Beispiel aus einer Mathematik Übung:
+Stark veraltetes Beispiel aus einer Mathematik Übung:
 ```latex
 \documentclass[german]{Exercise}% /Users/$(User)/Library/texmf/tex/latex/commonstuff
 

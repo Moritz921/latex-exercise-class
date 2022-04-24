@@ -37,6 +37,9 @@
     headheight=13pt
 ]{geometry}
 
+\newlength{\myTextwidth}
+\setlength{\myTextwidth}{495.07797pt}
+
 \RequirePackage{graphicx}
 \RequirePackage{amsmath,amsfonts,amssymb,amsthm,mathtools}
 \RequirePackage{extarrows}% xrightarrow etc. (\arrowname[sub-script]{super-script})
@@ -52,7 +55,7 @@
 \RequirePackage{tikz,pgfplots}
 \pgfplotsset{compat=1.18}
 
-\RequirePackage{hyperref}
+%\RequirePackage{hyperref}
 \RequirePackage{multicol} % Tabular top left field
 \RequirePackage{tabularx} % Better tabular(x)
 
@@ -61,8 +64,9 @@
 \RequirePackage{lastpage}% get last page numberint
 \RequirePackage{changepage}% indentation
 \RequirePackage{xstring}% length of string
-\RequirePackage{cleveref}% For abbrv. befor references
+%\RequirePackage{cleveref}% For abbrv. befor references
 \RequirePackage[autostyle=true,german=quotes]{csquotes}
+\RequirePackage{printlen}
 
 \DeclareOption{german}
 {
@@ -85,6 +89,9 @@
     \def\uebcspagenr{Page}
     \def\uebcstutor{Tutor}
 }
+
+\newlength{\headerOffset}
+\setlength{\headerOffset}{-7.5mm}
 
 \ProcessOptions\relax
 
@@ -112,15 +119,23 @@
 %    }\begin{adjustwidth}{0.5\parindent}{}}{\end{adjustwidth}}%
 
 % Defining variables for header data
+% \gdef\lectureLong{}
 \newcommand{\setLecture}[2][]{%
-    \def\lectureLong{#2}%
+    \gdef\lectureLong{#2}%
     \ifthenelse{\equal{#1}{}}{\def\lectureShort{#2}}{\def\lectureShort{#1}}%
 }
 
 \newcommand{\setSemester}[1]{\def\semester{#1}}
 \newcommand{\setName}[1]{\def\stdName{#1}}
 \newcommand{\setStdID}[1]{\def\stdID{#1}}
-\newcommand{\setAssignment}[1]{\def\assignment{#1}}
+
+\newlength{\lengthHeaderFirstLine}%
+\newcommand{\setAssignment}[1]{%
+    \def\assignment{#1}%
+    \settowidth{\lengthHeaderFirstLine}{\LARGE\textsc{\textbf{\lectureLong}}\normalsize\hfill\stdName\; --\; \stdID}%
+    \newlength{\lengthOverfullFirstLine}
+    \setlength{\lengthOverfullFirstLine}{\myTextwidth - (\lengthHeaderFirstLine + \headerOffset)}
+}%
 
 \def\stdGroup{No}
 \newcommand{\setGroup}[1]{\def\stdGroup{#1}}
@@ -133,12 +148,12 @@
 % short Header
 \def\uebcsuebungheader{{
         \vspace*{-16mm}
-        \hspace{-7.5mm}
+        \hspace{\headerOffset}
         \LARGE\textsc{\textbf{\lectureLong}}\normalsize
         \hfill
         \stdName\; --\; \stdID
         \vskip1.5mm
-        \hspace{-7.5mm}
+        \hspace{\headerOffset}
         \parbox{.333\textwidth}{\large \semester\normalsize \hfill}
         \parbox{.333\textwidth}{\hfil \uebcsassignment\ \assignment\hfil}
         \parbox{.333\textwidth}{\hfill \uebcsgroup\ \stdGroup\tutor}
@@ -149,13 +164,13 @@
 % long Header
 \def\uebcsuebungheaderlong{{
         \vspace*{-16mm}
-        \hspace{-7.5mm}
+        \hspace{\headerOffset}
         \LARGE\textsc{\textbf{\lectureLong}}\normalsize
         \vskip1.5mm
         \hfill
         \stdName\; --\; \uebcsmatnr: \stdID
         \vskip1.5mm
-        \hspace{-7.5mm}
+        \hspace{\headerOffset}
         \parbox{.333\textwidth}{\large \semester\normalsize \hfill}
         \parbox{.333\textwidth}{\hfil \uebcsassignment\ \assignment\hfil}
         \parbox{.333\textwidth}{\hfill \uebcsgroup\ \stdGroup\tutor}
@@ -180,12 +195,22 @@
 }
 \thispagestyle{firstPageStyle}
 
+\ProcessOptions
+
 % Add header to the beginning of the document
 \AtBeginDocument{
     \StrLen{\lectureLong}[\uebcslecturelength]%
-    \ifthenelse{\uebcslecturelength < 32}{%
-        \uebcsuebungheader%
-    }{%
+    \def\zuLangKurs{}
+    \ifthenelse{\lengthOverfullFirstLine < 0}{%
+        \def\zuLangKurs{True}%
         \uebcsuebungheaderlong%
+    }{%
+        \def\zuLangKurs{False}
+        \uebcsuebungheader%
     }%
+    % \ifthenelse{\uebcslecturelength < 32}{%
+    %     \uebcsuebungheader%
+    % }{%
+    %     \uebcsuebungheaderlong%
+    % }%
 }%
