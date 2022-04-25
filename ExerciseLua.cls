@@ -67,6 +67,7 @@
 %\RequirePackage{cleveref}% For abbrv. befor references
 \RequirePackage[autostyle=true,german=quotes]{csquotes}
 \RequirePackage{printlen}
+\RequirePackage{calc}
 
 \DeclareOption{german}
 {
@@ -129,13 +130,7 @@
 \newcommand{\setName}[1]{\def\stdName{#1}}
 \newcommand{\setStdID}[1]{\def\stdID{#1}}
 
-\newlength{\lengthHeaderFirstLine}%
-\newcommand{\setAssignment}[1]{%
-    \def\assignment{#1}%
-    \settowidth{\lengthHeaderFirstLine}{\LARGE\textsc{\textbf{\lectureLong}}\normalsize\hfill\stdName\; --\; \stdID}%
-    \newlength{\lengthOverfullFirstLine}
-    \setlength{\lengthOverfullFirstLine}{\myTextwidth - (\lengthHeaderFirstLine + \headerOffset)}
-}%
+\newcommand{\setAssignment}[1]{\def\assignment{#1}}%
 
 \def\stdGroup{No}
 \newcommand{\setGroup}[1]{\def\stdGroup{#1}}
@@ -199,8 +194,18 @@
 
 % Add header to the beginning of the document
 \AtBeginDocument{
-    \StrLen{\lectureLong}[\uebcslecturelength]%
+    \newlength{\lengthNameID}%
+    \newlength{\lengthStdName}%
+    \newlength{\halfTextwidth}%
+    \newlength{\lengthHeaderFirstLine}%
+    \newlength{\lengthOverfullFirstLine}%
+    \settowidth{\lengthNameID}{\stdName\ --\ \stdID}%
+    \settowidth{\lengthStdName}{\stdName}%
+    \settowidth{\lengthHeaderFirstLine}{\LARGE\textsc{\textbf{\lectureLong}}\normalsize\hfill\stdName\; --\; \stdID}%
+    \setlength{\lengthOverfullFirstLine}{\myTextwidth - (\lengthHeaderFirstLine + \headerOffset)}
+    \setlength{\halfTextwidth}{0.45\myTextwidth}
     \def\zuLangKurs{}
+
     \ifthenelse{\lengthOverfullFirstLine < 0}{%
         \def\zuLangKurs{True}%
         \uebcsuebungheaderlong%
@@ -208,9 +213,17 @@
         \def\zuLangKurs{False}
         \uebcsuebungheader%
     }%
-    % \ifthenelse{\uebcslecturelength < 32}{%
-    %     \uebcsuebungheader%
-    % }{%
-    %     \uebcsuebungheaderlong%
-    % }%
+
+    \ifthenelse{\lengthNameID > \halfTextwidth}{%
+        \ifthenelse{\lengthStdName > \halfTextwidth}{%
+            \newlength{\heightCorrection}%
+            \setlength{\heightCorrection}{-\baselineskip-1ex}%
+            \newlength{\bigHeaderHeight}%
+            \settototalheight{\bigHeaderHeight}{\parbox[t]{\halfTextwidth}{\vspace*{\heightCorrection}\begin{flushright}\stdName\end{flushright}}}%
+            \fancyhead[R]{\parbox[t]{\halfTextwidth}{\vspace*{\heightCorrection}\begin{flushright}\stdName\end{flushright}}}%
+            \geometry{headsep=\bigHeaderHeight}%
+        }{%
+            \fancyhead[R]{\stdName}%
+        }%
+    }{}%
 }%
