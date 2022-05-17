@@ -69,6 +69,28 @@
 \RequirePackage{printlen}
 \RequirePackage{calc}
 
+% Define coordinate system relative to page
+\makeatletter
+\def\parsecomma#1,#2\endparsecomma{\def\page@x{#1}\def\page@y{#2}}
+\tikzdeclarecoordinatesystem{page}{
+    \parsecomma#1\endparsecomma
+    \pgfpointanchor{current page}{north east}
+    % Save the upper right corner
+    \pgf@xc=\pgf@x%
+    \pgf@yc=\pgf@y%
+    % save the lower left corner
+    \pgfpointanchor{current page}{south west}
+    \pgf@xb=\pgf@x%
+    \pgf@yb=\pgf@y%
+    % Transform to the correct placement
+    \pgfmathparse{(\pgf@xc-\pgf@xb)/2.*\page@x+(\pgf@xc+\pgf@xb)/2.}
+    \expandafter\pgf@x\expandafter=\pgfmathresult pt
+    \pgfmathparse{(\pgf@yc-\pgf@yb)/2.*\page@y+(\pgf@yc+\pgf@yb)/2.}
+    \expandafter\pgf@y\expandafter=\pgfmathresult pt
+}
+\makeatother
+
+
 \DeclareOption{german}
 {
     % i18n: deutsch
@@ -91,9 +113,26 @@
     \def\uebcstutor{Tutor}
 }
 
-\newlength{\headerOffset}
-\setlength{\headerOffset}{-7.5mm}
+\DeclareOption{bw}{
+    \def\uebColorful{False}
+    \definecolor{goetheblau}{RGB}{0,0,0}
+    \definecolor{senfgelb}{RGB}{0,0,0}
+    \definecolor{emorot}{RGB}{0,0,0}
+    \definecolor{betterGreen}{RGB}{0,0,0}
+}
 
+\DeclareOption{colorful}{
+    \def\uebColorful{True}
+    \definecolor{goetheblau}{HTML}{00618F}
+    \definecolor{senfgelb}{RGB}{227,186,15}
+    \definecolor{emorot}{RGB}{179,6,44}
+    \definecolor{betterGreen}{RGB}{115,224,69}
+}
+
+\newlength{\headerOffset}%
+\setlength{\headerOffset}{-7.5mm}%
+
+\ExecuteOptions{german,bw}%
 \ProcessOptions\relax
 
 % Exercise environments
@@ -105,12 +144,12 @@
         \par\vspace{0ex}%
 }\begin{adjustwidth}{0.5\parindent}{}}{\end{adjustwidth}}%
 
-%\newenvironment{exerciseAssignment}[1]{{%
-%        \vspace{1.25ex}%
-%        \large%
-%        \noindent\textbf{\uebcsexercise\ \ex@assignment.#1} %
-%        \par\vspace{0ex}%
-%    }\begin{adjustwidth}{0.5\parindent}{}}{\end{adjustwidth}}%
+\newenvironment{exerciseAss}[1]{{%
+       \vspace{1.25ex}%
+       \large%
+       \noindent\textbf{\uebcsexercise\ \assignment.#1} %
+       \par\vspace{0ex}%
+   }\begin{adjustwidth}{0.5\parindent}{}}{\end{adjustwidth}}%
 %
 %\newenvironment{exerciseDouble}[2]{{%
 %        \vspace{1.25ex}%
@@ -153,7 +192,7 @@
         \parbox{.333\textwidth}{\hfil \uebcsassignment\ \assignment\hfil}
         \parbox{.333\textwidth}{\hfill \uebcsgroup\ \stdGroup\tutor}
         \vskip1.5mm
-        \hrule
+        {\color{goetheblau}\hrule height 1px }
         \vskip1mm
 }}
 % long Header
@@ -166,11 +205,11 @@
         \stdName\; --\; \uebcsmatnr: \stdID
         \vskip1.5mm
         \hspace{\headerOffset}
-        \parbox{.333\textwidth}{\large \semester\normalsize \hfill}
-        \parbox{.333\textwidth}{\hfil \uebcsassignment\ \assignment\hfil}
-        \parbox{.333\textwidth}{\hfill \uebcsgroup\ \stdGroup\tutor}
+        \parbox{.333\textwidth}{\color{emorot}\large \semester\normalsize \hfill}
+        \parbox{.333\textwidth}{\color{goetheblau}\hfil \uebcsassignment\ \assignment\hfil}
+        \parbox{.333\textwidth}{\color{emorot}\hfill \uebcsgroup\ \stdGroup\tutor}
         \vskip1.5mm
-        \hrule
+        {\color{goetheblau}\hrule height 1px }
         \vskip1mm
 }}
 
@@ -178,15 +217,18 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\textsc{\lectureShort}}
-\fancyhead[C]{\normalfont \uebcsassignment\ \assignment}
-\fancyhead[R]{\stdName\ --\ \stdID}
-\fancyfoot[C]{\thepage$\slash$\pageref*{LastPage}}
+\fancyhead[C]{{\color{goetheblau}\normalfont \uebcsassignment\ \assignment}}
+\fancyhead[R]{{\stdName\ --\ \stdID}}
+\fancyfoot[C]{{\color{goetheblau}\thepage$\slash$\pageref*{LastPage}}}
 
 % header of first page
+\let\oldheadrule\headrule% Copy \headrule into \oldheadrule
+\renewcommand{\headrule}{\color{goetheblau}\oldheadrule}% Add colour to \headrule
+\renewcommand{\headrulewidth}{1px}
 \fancypagestyle{firstPageStyle}{
     \fancyhf{}
     \renewcommand{\headrulewidth}{0pt}
-    \fancyfoot[C]{\thepage$\slash$\pageref*{LastPage}}
+    \fancyfoot[C]{{\color{goetheblau}\thepage$\slash$\pageref*{LastPage}}}
 }
 \thispagestyle{firstPageStyle}
 
