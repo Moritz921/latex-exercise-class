@@ -49,7 +49,7 @@ Ein Beispiel aus einer KI Übung:
 ```latex
 % !TEX program = lualatex
 % !TEX encoding = utf8
-\documentclass[german,colorful]{ExerciseLua}% /Users/moritz/Library/texmf/tex/latex/commonstuff
+\documentclass[german,colorful]{ExerciseLua}
 
 \usepackage[
     unicode=true,
