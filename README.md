@@ -32,7 +32,7 @@ Minimales Beispiel:
 \setLecture{kurze Veranstaltung}
 \setSemester{Sommer 2022}
 
-\setName{Moritz K}
+\setName{SarsNeunSieben}
 \setStdID{1234567}
 \setGroup{5}
 \setTutor{Richard Bock}
@@ -57,7 +57,7 @@ Ein Beispiel aus einer KI Übung:
     pdfmenubar=false,
     pdffitwindow=true,
     pdfstartview=FitB,
-    pdfauthor=Moritz Kowalski,
+    pdfauthor=SarsNeunSieben,
     pdfsubject=Übung
 ]{hyperref}
 \usepackage{cleveref}
@@ -71,7 +71,7 @@ color=black,
 opacity=0.1,
 angle=0,
 contents={%
-    \rand\includegraphics[width=\textwidth]{/Users/moritz/Library/texmf/tex/latex/commonstuff/PokemonGen1/\arabic{sec}.png}
+    \rand\includegraphics[width=\textwidth]{~/PokemonGen1/\arabic{sec}.png}
     }%
 }
 
@@ -114,10 +114,9 @@ contents={%
 \setLecture[KI]{{\color{goetheblau}Einführung in die Methoden der Künstlichen Intelligenz}}
 \setSemester{Sommer 2022}
 
-\setName{Tobias $\times$ \{Bock, Oertel\}, Nico Buttgereit, Moritz Kowalski}
-\setStdID{6554738, 6629171, 6602774, 6552918}
+\setName{SarsNeunSieben}
+\setStdID{1234567}
 \setGroup{1}
-% \setTutor{}
 \setAssignment{2}
 
 \begin{document}
