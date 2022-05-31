@@ -44,7 +44,7 @@ Minimales Beispiel:
     \end{exercise}
 \end{document}
 ```
-[[/Examples/mwe.pdf|mwe.pdf]]
+[[/Examples/mwe.jpg|mwe.pdf]]
 
 Ein Beispiel aus einer KI Übung:
 ```latex
@@ -324,4 +324,4 @@ contents={%
 \end{document}
 ```
 
-[[/Examples/Ki.pdf|Ki.pdf]]
+[[/Examples/Ki.jpg|Ki.pdf]]
