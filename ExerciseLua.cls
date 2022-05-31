@@ -183,13 +183,13 @@
 \def\uebcsuebungheader{{
         \vspace*{-16mm}
         \hspace{\headerOffset}
-        \LARGE\textsc{\textbf{\lectureLong}}\normalsize
+        \LARGE\textsc{\textbf{\color{goetheblau}\lectureLong}}\normalsize
         \hfill
         \stdName\; --\; \stdID
         \vskip1.5mm
         \hspace{\headerOffset}
         \parbox{.333\textwidth}{\large \semester\normalsize \hfill}
-        \parbox{.333\textwidth}{\hfil \uebcsassignment\ \assignment\hfil}
+        \parbox{.333\textwidth}{\color{goetheblau}\hfil \uebcsassignment\ \assignment\hfil}
         \parbox{.333\textwidth}{\hfill \uebcsgroup\ \stdGroup\tutor}
         \vskip1.5mm
         {\color{goetheblau}\hrule height 1px }
@@ -199,15 +199,15 @@
 \def\uebcsuebungheaderlong{{
         \vspace*{-16mm}
         \hspace{\headerOffset}
-        \LARGE\textsc{\textbf{\lectureLong}}\normalsize
+        \LARGE\textsc{\textbf{\color{goetheblau}\lectureLong}}\normalsize
         \vskip1.5mm
         \hfill
         \stdName\; --\; \uebcsmatnr: \stdID
         \vskip1.5mm
         \hspace{\headerOffset}
-        \parbox{.333\textwidth}{\color{emorot}\large \semester\normalsize \hfill}
+        \parbox{.333\textwidth}{\large \semester\normalsize \hfill}
         \parbox{.333\textwidth}{\color{goetheblau}\hfil \uebcsassignment\ \assignment\hfil}
-        \parbox{.333\textwidth}{\color{emorot}\hfill \uebcsgroup\ \stdGroup\tutor}
+        \parbox{.333\textwidth}{\hfill \uebcsgroup\ \stdGroup\tutor}
         \vskip1.5mm
         {\color{goetheblau}\hrule height 1px }
         \vskip1mm

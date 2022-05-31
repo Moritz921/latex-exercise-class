@@ -1,53 +1,3 @@
-# Vorlage für Übungen
-
-## Benutzung
-Die Datei `ExerciseLua.csl` im richtigen Ordner abspeichern:
-
-- MacOS: `/Users/$(user)/Library/texmf/tex/latex/commonstuff` 
-- Linux: `~/texmf/tex/latex/commonstuff/`
-- Windows: `C:/Users/$(user)/texmf/tex/latex/commonstuff`
-
-Ganz am Anfang kann diese Klasse mit der gewünschten Sprache ausgewählt und Farbe werden mit 
-`\documentclass[german]{ExerciseLua}` oder `\documentclass[english,colorful]{ExerciseLua}`.
-
-Die benötigten Variablen in der Präambel sind
-
-| Variable | Bedeutung |
-| ------ | ------ |
-| `\setLecture[]{}` | Name der Veranstaltung [Kürzel der Veranstaltung] |
-| `\setSemester{}` | Aktuelles Semester |
-| `\setName{}` | Name des Studierenden |
-| `\setstdID{}` | Matrikelnummer des Studierenden |
-| `\setGroup{}` | Übungsgruppe |
-| `\setTutor{}` | Name des Tutors (kann weggelassen werden) |
-| `\setAssignment{}` | Nummer des Übungsblatts *zwingend zuletzt und erforderlich* |
-
-Danach kann man loslegen.
-
-## Beispiele
-Minimales Beispiel:
-```latex
-\documentclass[german,colorful]{ExerciseLua}
-    
-\setLecture{kurze Veranstaltung}
-\setSemester{Sommer 2022}
-
-\setName{SarsNeunSieben}
-\setStdID{1234567}
-\setGroup{5}
-\setTutor{Richard Bock}
-\setAssignment{2}
-
-\begin{document}
-    \begin{exercise}{1}
-        Hello World
-    \end{exercise}
-\end{document}
-```
-[[/Examples/mwe.pdf|mwe.pdf]]
-
-Ein Beispiel aus einer KI Übung:
-```latex
 % !TEX program = lualatex
 % !TEX encoding = utf8
 \documentclass[german,colorful]{ExerciseLua}
@@ -63,18 +13,18 @@ Ein Beispiel aus einer KI Übung:
 ]{hyperref}
 \usepackage{cleveref}
 
-\usepackage{lcg}
-\reinitrand[counter=sec,first=1,last=151]
-\usepackage[pages=all]{background}
-\backgroundsetup{
-scale=1,
-color=black,
-opacity=0.1,
-angle=0,
-contents={%
-    \rand\includegraphics[width=\textwidth]{~/PokemonGen1/\arabic{sec}.png}
-    }%
-}
+% \usepackage{lcg}
+% \reinitrand[counter=sec,first=1,last=151]
+% \usepackage[pages=all]{background}
+% \backgroundsetup{
+% scale=1,
+% color=black,
+% opacity=0.1,
+% angle=0,
+% contents={%
+%     \rand\includegraphics[width=\textwidth]{~/PokemonGen1/\arabic{sec}.png}
+%     }%
+% }
 
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,automata,quotes}
@@ -322,6 +272,3 @@ contents={%
         Bergsteigen wiederum betrachtet zuerst den Teilbaum, in den er zuerst gegangen ist. Dadurch kann dieser auch in diesem Fall terminieren.
     \end{exercise}
 \end{document}
-```
-
-[[/Examples/Ki.pdf|Ki.pdf]]
